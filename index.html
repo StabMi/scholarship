@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scholarship Assistance Guide v3 — Meycauayan, Bulacan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2a; --blue: #1b4f72; --gold: #c9a84c; --gold-light: #f0d070;
+    --cream: #fdf6e3; --white: #ffffff; --gray: #6b7280; --red: #c0392b;
+    --green: #1a6b3a; --border: #e0d8c8; --purple: #7c3aed;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--navy); line-height: 1.6; }
+
+  .hero { background: var(--navy); color: var(--white); padding: 50px 40px 44px; position: relative; overflow: hidden; }
+  .hero::before { content:''; position:absolute; top:-80px; right:-80px; width:400px; height:400px; border-radius:50%; background:radial-gradient(circle,rgba(201,168,76,.15),transparent 70%); }
+  .hero-tag { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; display:block; }
+  .hero h1 { font-family:'Playfair Display',serif; font-size:clamp(26px,5vw,44px); font-weight:900; line-height:1.15; margin-bottom:12px; }
+  .hero h1 span { color:var(--gold); }
+  .hero p { font-size:14px; color:rgba(255,255,255,.7); max-width:580px; margin-bottom:20px; }
+  .hero-stats { display:flex; gap:28px; flex-wrap:wrap; }
+  .hero-stat { border-left:2px solid var(--gold); padding-left:12px; }
+  .hero-stat strong { display:block; font-family:'Playfair Display',serif; font-size:22px; color:var(--gold); }
+  .hero-stat span { font-size:11px; color:rgba(255,255,255,.6); text-transform:uppercase; letter-spacing:1px; }
+
+  .container { max-width:1140px; margin:0 auto; padding:0 20px; }
+
+  .nav-tabs { background:var(--white); border-bottom:2px solid var(--border); position:sticky; top:0; z-index:100; box-shadow:0 2px 12px rgba(0,0,0,.06); display:flex; align-items:stretch; }
+  .nav-arrow { background:var(--white); border:none; padding:0 10px; cursor:pointer; color:var(--gray); font-size:16px; display:flex; align-items:center; justify-content:center; transition:all .2s; flex-shrink:0; border-bottom:2px solid var(--border); margin-bottom:-2px; user-select:none; }
+  .nav-arrow:hover { background:var(--cream); color:var(--navy); }
+  .nav-arrow.hidden { opacity:0.2; pointer-events:none; }
+  .nav-arrow-left { border-right:1px solid var(--border); box-shadow:4px 0 8px rgba(0,0,0,.06); }
+  .nav-arrow-right { border-left:1px solid var(--border); box-shadow:-4px 0 8px rgba(0,0,0,.06); background:linear-gradient(to right, var(--white), #fffff8); }
+  .nav-tabs-inner { display:flex; overflow-x:auto; padding:0 4px; -webkit-overflow-scrolling:touch; scrollbar-width:none; flex:1; }
+  .nav-tabs-inner::-webkit-scrollbar { display:none; }
+  .tab-btn { background:none; border:none; padding:14px 18px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; color:var(--gray); cursor:pointer; border-bottom:3px solid transparent; margin-bottom:-2px; white-space:nowrap; transition:all .2s; }
+  .tab-btn:hover { color:var(--navy); }
+  .tab-btn.active { color:var(--navy); border-bottom-color:var(--gold); }
+
+  .section { display:none; padding:36px 0 56px; animation:fadeIn .3s ease; }
+  .section.active { display:block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+  .section-title { font-family:'Playfair Display',serif; font-size:24px; font-weight:700; margin-bottom:5px; }
+  .section-sub { font-size:13px; color:var(--gray); margin-bottom:28px; padding-bottom:18px; border-bottom:1px solid var(--border); }
+
+  .tier { display:inline-block; font-family:'DM Mono',monospace; font-size:10px; padding:2px 8px; border-radius:20px; font-weight:500; letter-spacing:1px; text-transform:uppercase; }
+  .tier-1 { background:#fef3c7; color:#92400e; border:1px solid #f59e0b; }
+  .tier-2 { background:#d1fae5; color:#065f46; border:1px solid #10b981; }
+  .tier-3 { background:#e0e7ff; color:#3730a3; border:1px solid #6366f1; }
+
+  /* Cards */
+  .offices-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; margin-bottom:28px; }
+  .office-card { background:var(--white); border:1px solid var(--border); border-radius:12px; padding:18px; transition:box-shadow .2s,transform .2s; position:relative; overflow:hidden; }
+  .office-card::before { content:''; position:absolute; top:0; left:0; width:4px; height:100%; background:var(--gold); }
+  .office-card:hover { box-shadow:0 8px 24px rgba(0,0,0,.1); transform:translateY(-2px); }
+  .office-card.secondary::before { background:var(--blue); }
+  .office-card.gray-card::before { background:var(--gray); }
+  .card-header { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:8px; }
+  .card-name { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:var(--navy); line-height:1.3; }
+  .card-role { font-size:11px; color:var(--gray); margin-top:2px; }
+  .card-contacts { margin-top:8px; display:flex; flex-direction:column; gap:4px; }
+  .contact-item { display:flex; align-items:flex-start; gap:7px; font-size:12px; color:var(--navy); }
+  .contact-item a { color:var(--blue); text-decoration:none; word-break:break-all; }
+  .contact-item a:hover { text-decoration:underline; }
+  .contact-icon { width:17px; height:17px; border-radius:3px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:9px; margin-top:2px; }
+  .icon-fb { background:#1877f2; color:white; }
+  .icon-email { background:var(--green); color:white; }
+  .icon-phone { background:var(--navy); color:white; }
+  .icon-web { background:var(--gold); color:white; }
+  .icon-personal-email { background:var(--purple); color:white; }
+  .card-note { margin-top:8px; padding:7px 9px; background:#fffbeb; border-radius:6px; font-size:11px; color:#78350f; border-left:3px solid var(--gold); }
+  .card-no-contact { font-size:11px; color:#9ca3af; font-style:italic; padding-top:4px; }
+
+  .group-label { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); font-weight:500; margin:24px 0 10px; padding-bottom:5px; border-bottom:1px dashed var(--border); }
+
+  /* Senator Table */
+  .table-wrap { overflow-x:auto; }
+  .senator-table { width:100%; border-collapse:collapse; background:var(--white); border-radius:12px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,.06); font-size:11px; }
+  .senator-table th { background:var(--navy); color:var(--white); padding:10px 9px; text-align:left; font-weight:600; font-size:10px; letter-spacing:.5px; font-family:'DM Mono',monospace; text-transform:uppercase; }
+  .senator-table td { padding:8px 9px; border-bottom:1px solid var(--border); vertical-align:middle; }
+  .senator-table tr:last-child td { border-bottom:none; }
+  .senator-table tr:nth-child(even) td { background:#fafaf7; }
+  .senator-table tr:hover td { background:#f0ede4; }
+  .senator-table a { text-decoration:none; }
+  .senator-table a:hover { text-decoration:underline; }
+  .em-personal { font-family:'DM Mono',monospace; font-size:10px; color:var(--purple); }
+  .em-personal a { color:var(--purple); }
+  .em-office { font-family:'DM Mono',monospace; font-size:10px; color:var(--green); }
+  .em-office a { color:var(--green); }
+  .fb-link { font-size:10px; color:#1877f2; }
+  .fb-link a { color:#1877f2; }
+  .no-data { color:#d1d5db; font-size:10px; font-style:italic; }
+  .senator-num { font-family:'DM Mono',monospace; font-size:10px; color:var(--gray); }
+
+  /* Letter */
+  .letter-container { background:var(--white); border:1px solid var(--border); border-radius:12px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,.08); margin-bottom:28px; }
+  .letter-toolbar { background:var(--navy); padding:11px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }
+  .letter-toolbar-title { font-family:'DM Mono',monospace; font-size:11px; color:var(--gold); letter-spacing:1px; text-transform:uppercase; }
+  .copy-btn { background:var(--gold); color:var(--navy); border:none; padding:5px 14px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer; font-family:'DM Sans',sans-serif; transition:background .2s; }
+  .copy-btn:hover { background:var(--gold-light); }
+  .letter-tabs-wrap { display:flex; align-items:stretch; border-bottom:1px solid var(--border); background:#fafaf7; }
+  .letter-arrow { background:#fafaf7; border:none; padding:0 10px; cursor:pointer; color:var(--gray); font-size:15px; display:flex; align-items:center; justify-content:center; transition:all .2s; flex-shrink:0; user-select:none; }
+  .letter-arrow:hover { background:var(--cream); color:var(--navy); }
+  .letter-arrow.hidden { opacity:0.2; pointer-events:none; }
+  .letter-arrow-left { border-right:1px solid var(--border); box-shadow:3px 0 6px rgba(0,0,0,.05); }
+  .letter-arrow-right { border-left:1px solid var(--border); box-shadow:-3px 0 6px rgba(0,0,0,.05); }
+  .letter-tabs { display:flex; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; flex:1; }
+  .letter-tabs::-webkit-scrollbar { display:none; }
+  .letter-tab { padding:9px 16px; font-size:11px; font-weight:600; color:var(--gray); cursor:pointer; border-bottom:2px solid transparent; white-space:nowrap; transition:all .2s; }
+  .letter-tab.active { color:var(--navy); border-bottom-color:var(--gold); background:var(--white); }
+  .letter-body { padding:28px 36px; font-size:14px; line-height:1.9; color:var(--navy); display:none; }
+  .letter-body.active { display:block; }
+  .letter-body p { margin-bottom:13px; }
+  .blank { background:#fffbeb; border-bottom:2px solid var(--gold); padding:0 4px; display:inline-block; min-width:70px; font-style:italic; color:#78350f; font-size:12px; }
+  .letter-meta { font-family:'DM Mono',monospace; font-size:10px; color:var(--gray); margin-bottom:20px; }
+  .letter-salutation { font-weight:600; margin-bottom:14px; }
+  .letter-closing { margin-top:18px; }
+  .letter-signature { margin-top:36px; padding-top:14px; border-top:1px solid var(--border); font-size:13px; }
+  .letter-note { background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px; padding:10px 14px; font-size:12px; color:#166534; margin-bottom:14px; }
+
+  /* Docs */
+  .docs-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:14px; margin-bottom:28px; }
+  .doc-card { background:var(--white); border:1px solid var(--border); border-radius:12px; padding:18px; position:relative; }
+  .doc-card.required { border-left:4px solid var(--red); }
+  .doc-card.helpful { border-left:4px solid var(--gold); }
+  .doc-card.optional { border-left:4px solid var(--gray); }
+  .doc-badge { position:absolute; top:14px; right:14px; font-family:'DM Mono',monospace; font-size:9px; padding:2px 7px; border-radius:20px; text-transform:uppercase; letter-spacing:1px; font-weight:600; }
+  .doc-badge.required { background:#fee2e2; color:var(--red); }
+  .doc-badge.helpful { background:#fef9c3; color:#854d0e; }
+  .doc-badge.optional { background:#f3f4f6; color:var(--gray); }
+  .doc-icon { width:32px; height:32px; border-radius:7px; background:var(--navy); color:var(--gold); display:flex; align-items:center; justify-content:center; font-size:14px; margin-bottom:10px; }
+  .doc-title { font-weight:700; font-size:13px; margin-bottom:3px; color:var(--navy); padding-right:54px; }
+  .doc-desc { font-size:11px; color:var(--gray); line-height:1.5; }
+  .doc-tip { margin-top:7px; padding:5px 7px; background:#f0f9ff; border-radius:5px; font-size:10px; color:#075985; }
+
+  /* Checklist */
+  .checklist { background:var(--white); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:20px; }
+  .checklist h3 { font-family:'Playfair Display',serif; font-size:16px; margin-bottom:14px; }
+  .check-item { display:flex; align-items:flex-start; gap:9px; padding:7px 0; border-bottom:1px solid #f5f0e8; font-size:12px; }
+  .check-item:last-child { border-bottom:none; }
+  .check-item input[type="checkbox"] { width:15px; height:15px; margin-top:2px; accent-color:var(--gold); flex-shrink:0; cursor:pointer; }
+  .check-item label { cursor:pointer; line-height:1.5; }
+  .check-item label.checked { text-decoration:line-through; color:var(--gray); }
+
+  .tips-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; }
+  .tip-card { background:var(--white); border:1px solid var(--border); border-radius:12px; padding:18px; }
+  .tip-num { font-family:'Playfair Display',serif; font-size:32px; font-weight:900; color:var(--gold); opacity:.4; line-height:1; margin-bottom:6px; }
+  .tip-title { font-weight:700; font-size:13px; margin-bottom:5px; }
+  .tip-text { font-size:12px; color:var(--gray); line-height:1.6; }
+
+  .urgency-banner { background:linear-gradient(135deg,#7f1d1d,#991b1b); color:white; padding:12px 18px; border-radius:10px; margin-bottom:20px; display:flex; align-items:center; gap:10px; font-size:12px; }
+  .urgency-banner strong { color:var(--gold-light); }
+
+  .legend { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:12px; font-size:11px; }
+  .legend-item { display:flex; align-items:center; gap:5px; }
+  .legend-dot { width:9px; height:9px; border-radius:50%; }
+
+  .info-box { padding:12px 16px; background:#f0fdf4; border-radius:9px; font-size:12px; color:#166534; border:1px solid #bbf7d0; margin-top:14px; }
+
+  @media (max-width:640px) {
+    .hero { padding:36px 20px 32px; }
+    .letter-body { padding:20px 18px; }
+    .senator-table { font-size:10px; }
+    .senator-table th, .senator-table td { padding:6px 7px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="hero-tag">📚 Scholarship &amp; Assistance Guide v3 • Meycauayan, Bulacan • AY 2026–2027</span>
+  <h1>Complete <span>Scholarship &amp;<br>Educational Assistance</span> Guide</h1>
+  <p>All local officials (with personal emails &amp; Facebook), all 24 senators, former senators, agencies, letter templates, and documents. Letters written from your brother's perspective.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><strong>10</strong><span>City Councilors</span></div>
+    <div class="hero-stat"><strong>2</strong><span>4th District Bokals</span></div>
+    <div class="hero-stat"><strong>24</strong><span>Current Senators</span></div>
+    <div class="hero-stat"><strong>June 30</strong><span>BPMSP Deadline</span></div>
+  </div>
+</div>
+
+<div class="nav-tabs" id="navTabs">
+  <button class="nav-arrow nav-arrow-left hidden" id="arrowLeft" onclick="scrollTabs(-1)" title="Scroll left">&#8592;</button>
+  <div class="nav-tabs-inner" id="tabsInner">
+    <button class="tab-btn active" onclick="showTab('local')">🏙️ Local Officials</button>
+    <button class="tab-btn" onclick="showTab('councilors')">🏛️ Councilors &amp; Bokals</button>
+    <button class="tab-btn" onclick="showTab('senators')">🏛️ All 24 Senators</button>
+    <button class="tab-btn" onclick="showTab('former')">📜 Former Senators</button>
+    <button class="tab-btn" onclick="showTab('agencies')">🏢 Agencies</button>
+    <button class="tab-btn" onclick="showTab('letters')">✉️ Letter Templates</button>
+    <button class="tab-btn" onclick="showTab('documents')">📋 Documents</button>
+    <button class="tab-btn" onclick="showTab('checklist')">✅ Action Plan</button>
+  </div>
+  <button class="nav-arrow nav-arrow-right" id="arrowRight" onclick="scrollTabs(1)" title="Scroll right">&#8594;</button>
+</div>
+
+<div class="container">
+
+<!-- ===== LOCAL OFFICIALS ===== -->
+<div id="tab-local" class="section active">
+  <h2 class="section-title">Local Officials — Meycauayan City &amp; Bulacan Province</h2>
+  <p class="section-sub">Start here. Your barangay endorsement letter is your master key — get it first before applying anywhere else.</p>
+
+  <div class="urgency-banner">⚡ <span><strong>First step:</strong> Go to your Barangay Hall now. A captain's endorsement letter boosts EVERY application on this list, including the ₱20,000 Presidential Scholarship.</span></div>
+
+  <div class="group-label">Barangay Level</div>
+  <div class="offices-grid">
+    <div class="office-card">
+      <div class="card-header"><div><div class="card-name">Your Barangay Captain</div><div class="card-role">Barangay Hall, Meycauayan City</div></div><span class="tier tier-1">⭐ Do First</span></div>
+      <div class="card-contacts"><div class="contact-item">📍 Walk in to your barangay hall with your enrollment/admission letter</div></div>
+      <div class="card-note">Get two things: (1) Barangay Endorsement Letter and (2) Certificate of Indigency. Also ask about the <strong>Bawat Barangay Makikinabang Presidential Scholarship</strong> — ₱20,000, up to 5 scholars per barangay. You must be nominated by your captain.</div>
+    </div>
+  </div>
+
+  <div class="group-label">City Level — Meycauayan</div>
+  <div class="offices-grid">
+    <div class="office-card">
+      <div class="card-header"><div><div class="card-name">Mayor Henry R. Villarica</div><div class="card-role">"Atorni Henry" — Meycauayan City Hall, Office of the Mayor</div></div><span class="tier tier-1">⭐ Priority</span></div>
+      <div class="card-contacts">
+        <div class="contact-item"><span class="contact-icon icon-phone">📞</span>(044) 840-0318 / (044) 919-8020 loc. 1002</div>
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span><a href="https://facebook.com/MeycauayanCityGovernment" target="_blank">fb.com/MeycauayanCityGovernment</a> (Official City Page)</div>
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span>Search <strong>"Henry Villarica Meycauayan"</strong> on Facebook for personal page</div>
+      </div>
+      <div class="card-note">Go to City Social Welfare and Development Office (CSWD) with barangay endorsement. Ask about per-semester city educational assistance.</div>
+    </div>
+
+    <div class="office-card secondary">
+      <div class="card-header"><div><div class="card-name">Vice Mayor Josefina "Jojie" O. Violago</div><div class="card-role">Meycauayan City Hall</div></div><span class="tier tier-2">Good</span></div>
+      <div class="card-contacts">
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span>Search <strong>"Jojie Violago Meycauayan"</strong> on Facebook</div>
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span>Or search <strong>"Cocoy Dulalia"</strong> — posts tagged with her often</div>
+      </div>
+      <div class="card-note">Was involved in PCL Bulacan educational assistance distribution in Meycauayan in 2026. Also accessible via Sangguniang Panlungsod sessions.</div>
+    </div>
+  </div>
+
+  <div class="group-label">Provincial Level — Bulacan</div>
+  <div class="offices-grid">
+    <div class="office-card">
+      <div class="card-header"><div><div class="card-name">Governor Daniel R. Fernando</div><div class="card-role">Provincial Government of Bulacan, Malolos</div></div><span class="tier tier-1">⭐ Priority</span></div>
+      <div class="card-contacts">
+        <div class="contact-item"><span class="contact-icon icon-phone">📞</span>(044) 791-0217</div>
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span><a href="https://facebook.com/pgbulacan" target="_blank">fb.com/pgbulacan</a> (Official)</div>
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span>Search <strong>"Daniel Fernando Governor Bulacan"</strong> for personal page</div>
+      </div>
+      <div class="card-note">"Tulong Pang-Edukasyon Para sa Bulakenyo" — ₱3,500 for private HEI students, ₱3,000 for SUC/LUC. Funds released directly to LandBank card. Apply at Provincial Capitol.</div>
+    </div>
+
+    <div class="office-card secondary">
+      <div class="card-header"><div><div class="card-name">Vice Governor Alexis "Alex" Castro</div><div class="card-role">Presiding Officer, Sangguniang Panlalawigan</div></div><span class="tier tier-2">Good</span></div>
+      <div class="card-contacts">
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span><a href="https://facebook.com/pgbulacan" target="_blank">fb.com/pgbulacan</a></div>
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span>Search <strong>"Alexis Castro Bulacan"</strong> for personal page</div>
+      </div>
+      <div class="card-note">Presides over provincial board sessions. Can endorse or route educational assistance requests to relevant board members.</div>
+    </div>
+  </div>
+
+  <div class="group-label">District Level — 4th Congressional District of Bulacan</div>
+  <div class="offices-grid">
+    <div class="office-card">
+      <div class="card-header"><div><div class="card-name">Cong. Linabelle Ruth R. Villarica</div><div class="card-role">4th District of Bulacan — House of Representatives<br><small style="color:#6b7280">Covers: Meycauayan City, Marilao, Obando</small></div></div><span class="tier tier-1">⭐ Priority</span></div>
+      <div class="card-contacts">
+        <div class="contact-item"><span class="contact-icon icon-phone">📞</span>(632) 8931-5001 local 7005</div>
+        <div class="contact-item"><span class="contact-icon icon-phone">📞</span>Direct: (632) 8951-0943</div>
+        <div class="contact-item">📍 House of Rep., QC — Room RVM-403</div>
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span>Search <strong>"Linabelle Villarica"</strong> on Facebook</div>
+      </div>
+      <div class="card-note">Your congressional representative. Send a formal letter with barangay endorsement to Room RVM-403 or through her district office in Meycauayan. The Villarica family (Mayor Henry + Cong. Linabelle) are both strong contacts for educational assistance.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== COUNCILORS & BOKALS ===== -->
+<div id="tab-councilors" class="section">
+  <h2 class="section-title">City Councilors &amp; Provincial Board Members (Bokals)</h2>
+  <p class="section-sub">
+    <strong>Bokal</strong> = Filipino slang for <strong>Board Member (BM)</strong> = officially <strong>Sangguniang Panlalawigan Member</strong> — they are the provincial legislators elected per district.
+    City Councilors = <strong>Sangguniang Panlungsod Members</strong> — city-level legislators.
+    Both have discretionary funds and can endorse or directly provide educational assistance.
+  </p>
+
+  <div class="urgency-banner">💡 <span>Message ALL of them on Facebook simultaneously. Most are very active and personally respond to assistance requests. Include your barangay endorsement letter in the message.</span></div>
+
+  <!-- MEYCAUAYAN COUNCILORS 2025-2028 -->
+  <div class="group-label">🏙️ Meycauayan City Councilors — Term 2025–2028 (Sangguniang Panlungsod)</div>
+
+  <div class="offices-grid">
+
+    <div class="office-card">
+      <div class="card-header"><div><div class="card-name">Coun. Henry Lester R. Villarica</div><div class="card-role">"Kuya Lester" — Councilor #1 (Top vote-getter: 77,281 votes)</div></div><span class="tier tier-1">⭐ Top</span></div>
+      <div class="card-contacts">
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span><a href="https://facebook.com/profile.php?id=61567059141947" target="_blank">fb.com — Kuya Lester Villarica</a></div>
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span>Also search <strong>"Henry Lester Villarica"</strong> on Facebook</div>
+      </div>
+      <div class="card-note">Son of Mayor Henry Villarica and Congresswoman Linabelle Villarica. Top vote-getter in 2025. Strong family connection means high probability of assistance from the Villarica political network.</div>
+    </div>
+
+    <div class="office-card">
+      <div class="card-header"><div><div class="card-name">Coun. Ronald "Daboy" S. Palomares</div><div class="card-role">Councilor #2 — 70,063 votes</div></div><span class="tier tier-2">Good</span></div>
+      <div class="card-contacts">
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span>Search <strong>"Ronald Daboy Palomares Meycauayan"</strong> on Facebook</div>
+      </div>
+      <div class="card-note">Veteran councilor serving multiple terms. Active in community programs.</div>
+    </div>
+
+    <div class="office-card">
+      <div class="card-header"><div><div class="card-name">Coun. Christian "Ian" M. Velasco</div><div class="card-role">Councilor #3 — 65,722 votes</div></div><span class="tier tier-2">Good</span></div>
+      <div class="card-contacts">
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span>Search <strong>"Ian Velasco Meycauayan councilor"</strong> on Facebook</div>
+      </div>
+    </div>
+
+    <div class="office-card">
+      <div class="card-header"><div><div class="card-name">Coun. Catherine "Cathy" C. Abacan</div><div class="card-role">Councilor #4 — 61,543 votes</div></div><span class="tier tier-2">Good</span></div>
+      <div class="card-contacts">
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span>Search <strong>"Cathy Abacan Meycauayan"</strong> on Facebook</div>
+      </div>
+      <div class="card-note">Veteran councilor serving since 2016. Known for active community engagement.</div>
+    </div>
+
+    <div class="office-card">
+      <div class="card-header"><div><div class="card-name">Coun. Raoul M. Atadero</div><div class="card-role">Councilor #5 — 57,714 votes</div></div><span class="tier tier-2">Good</span></div>
+      <div class="card-contacts">
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span>Search <strong>"Raoul Atadero Meycauayan"</strong> on Facebook</div>
+      </div>
+      <div class="card-note">Long-serving councilor — has been in office since at least 2010. Very established in the community.</div>
+    </div>
+
+    <div class="office-card">
+      <div class="card-header"><div><div class="card-name">Coun. Georgina Marie "Gina" S. Dulalia</div><div class="card-role">Councilor #6 — 55,727 votes</div></div><span class="tier tier-2">Good</span></div>
+      <div class="card-contacts">
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span>Search <strong>"Gina Dulalia Meycauayan councilor"</strong> on Facebook</div>
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span>Or try <strong>"cocoy.dulalia"</strong> — related family page often tags her</div>
+      </div>
+    </div>
+
+    <div class="office-card">
+      <div class="card-header"><div><div class="card-name">Coun. Wilfredo "Kap Ching" DS. Macatulad</div><div class="card-role">Councilor #7 — 53,726 votes</div></div><span class="tier tier-2">Good</span></div>
+      <div class="card-contacts">
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span>Search <strong>"Kap Ching Macatulad Meycauayan"</strong> on Facebook</div>
+      </div>
+      <div class="card-note">Long-serving councilor since at least 2016. Active barangay-level connections.</div>
+    </div>
+
+    <div class="office-card">
+      <div class="card-header"><div><div class="card-name">Coun. Mary Christine "Cindy" Z. Paguio</div><div class="card-role">Councilor #8 — 53,008 votes</div></div><span class="tier tier-2">Good</span></div>
+      <div class="card-contacts">
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span>Search <strong>"Cindy Paguio Meycauayan councilor"</strong> on Facebook</div>
+      </div>
+    </div>
+
+    <div class="office-card">
+      <div class="card-header"><div><div class="card-name">Coun. Larissa "Lara" DS. Abracero-San Diego</div><div class="card-role">Councilor #9 — 48,691 votes</div></div><span class="tier tier-2">Good</span></div>
+      <div class="card-contacts">
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span>Search <strong>"Lara Abracero Meycauayan"</strong> on Facebook</div>
+      </div>
+    </div>
+
+    <div class="office-card">
+      <div class="card-header"><div><div class="card-name">Coun. Danilo "Dado" B. Abacan Jr.</div><div class="card-role">Councilor #10 — 46,758 votes</div></div><span class="tier tier-2">Good</span></div>
+      <div class="card-contacts">
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span>Search <strong>"Dado Abacan Meycauayan"</strong> on Facebook</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="info-box">
+    📌 <strong>Meycauayan City Hall contact:</strong> (044) 919-8020 — Ask for the Sangguniang Panlungsod Secretariat for the complete office contacts of councilors.
+  </div>
+
+  <!-- PROVINCIAL BOARD MEMBERS (BOKALS) -->
+  <div class="group-label">🏛️ Provincial Board Members (Bokals) — 4th SP District: Meycauayan, Marilao, Obando — Term 2025–2028</div>
+
+  <p style="font-size:13px;color:var(--gray);margin-bottom:16px;">These two "Bokals" represent Meycauayan, Marilao, and Obando in the Bulacan Sangguniang Panlalawigan (Provincial Legislature). They vote on provincial budgets and can endorse assistance requests to the governor's office.</p>
+
+  <div class="offices-grid">
+
+    <div class="office-card">
+      <div class="card-header"><div><div class="card-name">BM Anna Kathrina "Kat" M. Hernandez</div><div class="card-role">Board Member — Bulacan's 4th SP District (Meycauayan, Marilao, Obando)<br>Sangguniang Panlalawigan ng Bulacan</div></div><span class="tier tier-1">⭐ Priority</span></div>
+      <div class="card-contacts">
+        <div class="contact-item"><span class="contact-icon icon-web">🌐</span><a href="https://bulacan.gov.ph/government/elective-officials/bm-hernandez/" target="_blank">bulacan.gov.ph — Official Profile</a></div>
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span>Search <strong>"Kat Hernandez Bulacan Board Member"</strong> on Facebook</div>
+        <div class="contact-item">📍 Bulacan Provincial Capitol, Malolos — Sangguniang Panlalawigan</div>
+        <div class="contact-item"><span class="contact-icon icon-phone">📞</span>SP Bulacan: sp.bulacan.gov.ph</div>
+      </div>
+      <div class="card-note">Was previously Meycauayan City Councilor (2019–2025) before becoming Provincial Board Member. Strong roots in Meycauayan. High chance of response to local constituents.</div>
+    </div>
+
+    <div class="office-card">
+      <div class="card-header"><div><div class="card-name">BM William Villarica</div><div class="card-role">Board Member — Bulacan's 4th SP District<br>Also: PCL Bulacan President (ex-officio BM)</div></div><span class="tier tier-1">⭐ Priority</span></div>
+      <div class="card-contacts">
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span><a href="https://facebook.com/pclbulacan" target="_blank">fb.com/pclbulacan</a> (PCL Bulacan official page)</div>
+        <div class="contact-item"><span class="contact-icon icon-fb">f</span>Search <strong>"William Villarica Bulacan"</strong> on Facebook</div>
+        <div class="contact-item">📍 Bulacan Provincial Capitol, Malolos</div>
+      </div>
+      <div class="card-note">Part of the Villarica family network. Also serves as PCL (Philippine Councilors League) Bulacan President — led the PCL educational assistance distribution in Meycauayan 2026. Strong channel for educational assistance.</div>
+    </div>
+
+  </div>
+
+  <div class="group-label">🏛️ Other Relevant Provincial Board Members (Bulacan SP)</div>
+  <p style="font-size:12px;color:var(--gray);margin-bottom:12px;">These board members represent other districts but sit on the same provincial board. They can also receive and act on requests from any Bulacan resident.</p>
+
+  <div class="offices-grid">
+    <div class="office-card secondary"><div class="card-header"><div><div class="card-name">BM Josef Andrew "Anjo" Mendoza</div><div class="card-role">PCL Bulacan Rep. (Ex-Officio BM) — Active in Meycauayan EA distribution 2026</div></div><span class="tier tier-1">⭐</span></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-fb">f</span><a href="https://facebook.com/pclbulacan" target="_blank">fb.com/pclbulacan</a></div></div><div class="card-note">Directly distributed PCL educational assistance in Meycauayan in 2026. High chance of response.</div></div>
+    <div class="office-card secondary"><div class="card-header"><div><div class="card-name">BM Erlene Luz dela Cruz</div><div class="card-role">2nd District Board Member (3rd term)</div></div><span class="tier tier-2">Good</span></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-fb">f</span>Search "Erlene Dela Cruz Bulacan Board Member" on Facebook</div></div></div>
+    <div class="office-card secondary"><div class="card-header"><div><div class="card-name">BM Lee Edward Nicolas</div><div class="card-role">2nd District Board Member</div></div><span class="tier tier-2">Good</span></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-fb">f</span>Search "Lee Nicolas Bulacan Board Member" on Facebook</div></div></div>
+    <div class="office-card secondary"><div class="card-header"><div><div class="card-name">BM Romeo Castro Jr.</div><div class="card-role">3rd District Board Member</div></div><span class="tier tier-2">Good</span></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-fb">f</span>Search "Romeo Castro Bulacan Board Member" on Facebook</div></div></div>
+  </div>
+
+  <div class="info-box">
+    📌 <strong>Sangguniang Panlalawigan ng Bulacan:</strong> <a href="https://sp.bulacan.gov.ph" target="_blank">sp.bulacan.gov.ph</a> — Contact all board members through the official SP Bulacan website or visit Provincial Capitol, Malolos.
+  </div>
+</div>
+
+<!-- ===== ALL 24 SENATORS ===== -->
+<div id="tab-senators" class="section">
+  <h2 class="section-title">All 24 Senators — 20th Congress</h2>
+  <p class="section-sub">Send to ALL simultaneously. Personal emails go directly to the senator's team — use those first over office emails.</p>
+
+  <div class="urgency-banner">💡 <span>Personal emails (purple) get faster responses than office emails. Facebook Messenger + email at the same time = best results.</span></div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div><span style="color:var(--purple)">Personal email</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div><span style="color:var(--green)">Office/official email</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#1877f2"></div><span style="color:#1877f2">Facebook</span></div>
+  </div>
+
+  <div class="table-wrap">
+  <table class="senator-table">
+    <thead>
+      <tr>
+        <th>#</th><th>Senator</th><th>Priority</th>
+        <th>Personal Email</th><th>Office Email</th>
+        <th>Personal FB</th><th>Official FB Page</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="senator-num">01</td><td><strong>Alan Peter Cayetano</strong><br><small>Senate President</small></td><td><span class="tier tier-2">Good</span></td><td class="em-personal"><a href="mailto:alanpeter@cayetano.com.ph">alanpeter@cayetano.com.ph</a></td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/alanpetercayetano" target="_blank">@alanpetercayetano</a></td><td class="fb-link"><a href="https://facebook.com/OfficeofSenatorAlanPeterCayetano" target="_blank">OfficeofSenatorAPC</a></td></tr>
+      <tr><td class="senator-num">02</td><td><strong>Bam Aquino</strong><br><small>Free College Law author ⭐</small></td><td><span class="tier tier-1">⭐ Tier 1</span></td><td class="no-data">—</td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/BenignoBamAquino" target="_blank">@BenignoBamAquino</a></td><td class="fb-link"><a href="https://facebook.com/BenignoBamAquino" target="_blank">BenignoBamAquino</a></td></tr>
+      <tr><td class="senator-num">03</td><td><strong>Bato dela Rosa</strong></td><td><span class="tier tier-3">Low</span></td><td class="em-personal"><a href="mailto:secretariat.batodelarosa@gmail.com">secretariat.batodelarosa@gmail.com</a></td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/OFFICIALPAGEofRonaldBatoDelaRosa" target="_blank">@OFFICIALPAGEofRonaldBatoDelaRosa</a></td><td class="fb-link"><a href="https://facebook.com/BatoDelaRosaOfficial" target="_blank">BatoDelaRosaOfficial</a></td></tr>
+      <tr><td class="senator-num">04</td><td><strong>Bong Go</strong><br><small>Chair, Youth Committee ⭐</small></td><td><span class="tier tier-1">⭐ Tier 1</span></td><td class="em-personal"><a href="mailto:senbgconcerns@gmail.com">senbgconcerns@gmail.com</a></td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/bonggopage" target="_blank">@bonggopage</a></td><td class="fb-link"><a href="https://facebook.com/BongGoOfficial" target="_blank">BongGoOfficial</a></td></tr>
+      <tr><td class="senator-num">05</td><td><strong>Camille Villar</strong></td><td><span class="tier tier-2">Good</span></td><td class="no-data">—</td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/CamilleVillarOfficial" target="_blank">@CamilleVillarOfficial</a></td><td class="fb-link"><a href="https://facebook.com/CamilleVillarOfficial" target="_blank">CamilleVillarOfficial</a></td></tr>
+      <tr><td class="senator-num">06</td><td><strong>Chiz Escudero</strong></td><td><span class="tier tier-2">Good</span></td><td class="no-data">—</td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/officialchizescudero" target="_blank">@officialchizescudero</a></td><td class="fb-link"><a href="https://facebook.com/officialchizescudero" target="_blank">officialchizescudero</a></td></tr>
+      <tr><td class="senator-num">07</td><td><strong>Erwin Tulfo</strong></td><td><span class="tier tier-2">Good</span></td><td class="no-data">—</td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/ErwinTulfoOfficial" target="_blank">@ErwinTulfoOfficial</a></td><td class="fb-link"><a href="https://facebook.com/ErwinTulfoOfficial" target="_blank">ErwinTulfoOfficial</a></td></tr>
+      <tr><td class="senator-num">08</td><td><strong>Imee Marcos</strong></td><td><span class="tier tier-2">Good</span></td><td class="em-personal"><a href="mailto:osimeemarcos@gmail.com">osimeemarcos@gmail.com</a></td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/ImeeMarcos" target="_blank">@ImeeMarcos</a></td><td class="fb-link"><a href="https://facebook.com/ImeeMarcos" target="_blank">ImeeMarcos</a></td></tr>
+      <tr><td class="senator-num">09</td><td><strong>Jinggoy Estrada</strong></td><td><span class="tier tier-1">⭐ Tier 1</span></td><td class="em-personal"><a href="mailto:senatorjinggoyestrada@gmail.com">senatorjinggoyestrada@gmail.com</a></td><td class="em-office"><a href="mailto:anakngmasa@jinggoyestrada.ph">anakngmasa@jinggoyestrada.ph</a></td><td class="fb-link"><a href="https://facebook.com/JinggoyEstrada" target="_blank">@JinggoyEstrada</a></td><td class="fb-link"><a href="https://facebook.com/JinggoyEstrada" target="_blank">JinggoyEstrada</a></td></tr>
+      <tr><td class="senator-num">10</td><td><strong>Joel Villanueva</strong><br><small>Majority Leader ⭐</small></td><td><span class="tier tier-1">⭐ Tier 1</span></td><td class="em-personal"><a href="mailto:senatorjoelvillanueva@yahoo.com">senatorjoelvillanueva@yahoo.com</a></td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/JoelVillanueva" target="_blank">@JoelVillanueva</a></td><td class="fb-link"><a href="https://facebook.com/JoelVillanueva" target="_blank">JoelVillanueva</a></td></tr>
+      <tr><td class="senator-num">11</td><td><strong>JV Ejercito</strong></td><td><span class="tier tier-2">Good</span></td><td class="no-data">—</td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/JVEjercito" target="_blank">@JVEjercito</a></td><td class="fb-link"><a href="https://facebook.com/JVEjercito" target="_blank">JVEjercito</a></td></tr>
+      <tr><td class="senator-num">12</td><td><strong>Kiko Pangilinan</strong></td><td><span class="tier tier-2">Good</span></td><td class="em-personal"><a href="mailto:kiko@kikopangilinan.com">kiko@kikopangilinan.com</a></td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/KikoPangilinan" target="_blank">@KikoPangilinan</a></td><td class="fb-link"><a href="https://facebook.com/KikoPangilinan" target="_blank">KikoPangilinan</a></td></tr>
+      <tr><td class="senator-num">13</td><td><strong>Lito Lapid</strong><br><small>⭐ Took oath in Meycauayan!</small></td><td><span class="tier tier-1">⭐ Special</span></td><td class="no-data">—</td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/LitoLapidOfficial" target="_blank">@LitoLapidOfficial</a></td><td class="fb-link"><a href="https://facebook.com/LitoLapidOfficial" target="_blank">LitoLapidOfficial</a></td></tr>
+      <tr><td class="senator-num">14</td><td><strong>Loren Legarda</strong><br><small>Chair, Basic &amp; Higher Ed ⭐</small></td><td><span class="tier tier-1">⭐ Tier 1</span></td><td class="em-personal"><a href="mailto:loren@lorenlegarda.com.ph">loren@lorenlegarda.com.ph</a></td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/LorenLegarda" target="_blank">@LorenLegarda</a></td><td class="fb-link"><a href="https://facebook.com/LorenLegarda" target="_blank">LorenLegarda</a></td></tr>
+      <tr><td class="senator-num">15</td><td><strong>Mark Villar</strong></td><td><span class="tier tier-2">Good</span></td><td class="em-personal"><a href="mailto:senatormarkvillar@gmail.com">senatormarkvillar@gmail.com</a></td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/MarkVillar" target="_blank">@MarkVillar</a></td><td class="fb-link"><a href="https://facebook.com/MarkVillarOfficial" target="_blank">MarkVillarOfficial</a></td></tr>
+      <tr><td class="senator-num">16</td><td><strong>Migz Zubiri</strong></td><td><span class="tier tier-2">Good</span></td><td class="em-personal"><a href="mailto:senmigzzubiri@gmail.com">senmigzzubiri@gmail.com</a></td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/migzzubiri" target="_blank">@migzzubiri</a></td><td class="fb-link"><a href="https://facebook.com/MigzZubiri" target="_blank">MigzZubiri</a></td></tr>
+      <tr><td class="senator-num">17</td><td><strong>Panfilo "Ping" Lacson</strong></td><td><span class="tier tier-2">Good</span></td><td class="em-personal"><a href="mailto:ospml2025@gmail.com">ospml2025@gmail.com</a></td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/PingLacsonOfficial" target="_blank">@PingLacsonOfficial</a></td><td class="fb-link"><a href="https://facebook.com/PingLacson" target="_blank">PingLacson</a></td></tr>
+      <tr><td class="senator-num">18</td><td><strong>Pia Cayetano</strong></td><td><span class="tier tier-2">Good</span></td><td class="no-data">—</td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/PiaCayetano" target="_blank">@PiaCayetano</a></td><td class="fb-link"><a href="https://facebook.com/PiaCayetano" target="_blank">PiaCayetano</a></td></tr>
+      <tr><td class="senator-num">19</td><td><strong>Raffy Tulfo</strong></td><td><span class="tier tier-1">⭐ Tier 1</span></td><td class="em-personal"><a href="mailto:raffy.tulfo@teamtulfo.com">raffy.tulfo@teamtulfo.com</a></td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/RaffyTulfoInAction" target="_blank">@RaffyTulfoInAction</a></td><td class="fb-link"><a href="https://facebook.com/RaffyTulfo" target="_blank">RaffyTulfo</a></td></tr>
+      <tr><td class="senator-num">20</td><td><strong>Risa Hontiveros</strong></td><td><span class="tier tier-2">Good</span></td><td class="em-personal"><a href="mailto:risahq@gmail.com">risahq@gmail.com</a></td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/hontiverosrisa" target="_blank">@hontiverosrisa</a></td><td class="fb-link"><a href="https://facebook.com/RisaHontiveros" target="_blank">RisaHontiveros</a></td></tr>
+      <tr><td class="senator-num">21</td><td><strong>Robin Padilla</strong></td><td><span class="tier tier-2">Good</span></td><td class="no-data">—</td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/RobinhoodPadilla" target="_blank">@RobinhoodPadilla</a></td><td class="fb-link"><a href="https://facebook.com/RobinhoodPadilla" target="_blank">RobinhoodPadilla</a></td></tr>
+      <tr><td class="senator-num">22</td><td><strong>Rodante Marcoleta</strong></td><td><span class="tier tier-2">Good</span></td><td class="em-personal"><a href="mailto:osmarcoleta2025@gmail.com">osmarcoleta2025@gmail.com</a></td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/RodanteMarcoleta" target="_blank">@RodanteMarcoleta</a></td><td class="fb-link"><a href="https://facebook.com/RodanteMarcoleta" target="_blank">RodanteMarcoleta</a></td></tr>
+      <tr><td class="senator-num">23</td><td><strong>Win Gatchalian</strong></td><td><span class="tier tier-2">Good</span></td><td class="no-data">—</td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/WinGatchalian" target="_blank">@WinGatchalian</a></td><td class="fb-link"><a href="https://facebook.com/WinGatchalian" target="_blank">WinGatchalian</a></td></tr>
+      <tr><td class="senator-num">24</td><td><strong>Tito Sotto</strong></td><td><span class="tier tier-2">Good</span></td><td class="em-personal"><a href="mailto:senatorvicentesotto@gmail.com">senatorvicentesotto@gmail.com</a></td><td class="no-data">—</td><td class="fb-link"><a href="https://facebook.com/TeamTitoSotto" target="_blank">@TeamTitoSotto</a></td><td class="fb-link"><a href="https://facebook.com/TeamTitoSotto" target="_blank">TeamTitoSotto</a></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="info-box" style="margin-top:14px;">
+    📌 <strong>Note on Sen. Lito Lapid (#13):</strong> He took his senatorial oath in Meycauayan, Bulacan (Barangay Pantoc) in 2019 — he has a personal connection to your city. Worth mentioning in your letter that you are from Meycauayan! | <strong>Senate SPAO:</strong> web.senate.gov.ph → "Senate Assist" for any senator without email.
+  </div>
+</div>
+
+<!-- ===== FORMER SENATORS ===== -->
+<div id="tab-former" class="section">
+  <h2 class="section-title">Former Senators — Still Worth Contacting</h2>
+  <p class="section-sub">These senators ended their terms in June 2025 but hold new positions or continue assistance through foundations. Some now have even more resources.</p>
+
+  <div class="offices-grid">
+    <div class="office-card"><div class="card-header"><div><div class="card-name">Sec. Sonny Angara</div><div class="card-role">Secretary of Education (DepEd) — former Senator</div></div><span class="tier tier-1">⭐ Top</span></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-email">@</span><a href="mailto:osec@deped.gov.ph">osec@deped.gov.ph</a></div><div class="contact-item"><span class="contact-icon icon-phone">📞</span>(632) 8636-1663</div><div class="contact-item"><span class="contact-icon icon-fb">f</span><a href="https://facebook.com/SonnyAngara" target="_blank">fb.com/SonnyAngara</a></div></div><div class="card-note">Now controls the entire education budget — CHED, UniFAST, all scholarships. Most powerful single contact for education assistance in the Philippines.</div></div>
+    <div class="office-card"><div class="card-header"><div><div class="card-name">Mayor Nancy Binay</div><div class="card-role">Makati City Mayor — former Senator</div></div><span class="tier tier-1">⭐ Priority</span></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-fb">f</span><a href="https://facebook.com/NancyBinayOfficial" target="_blank">fb.com/NancyBinayOfficial</a></div></div><div class="card-note">Known for highly accessible constituent assistance. Very responsive on Facebook Messenger.</div></div>
+    <div class="office-card secondary"><div class="card-header"><div><div class="card-name">Grace Poe</div><div class="card-role">Former Senator</div></div><span class="tier tier-2">Good</span></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-fb">f</span><a href="https://facebook.com/GracePoeOfficial" target="_blank">fb.com/GracePoeOfficial</a></div></div><div class="card-note">Strong education advocate. Still responds to assistance requests via Facebook.</div></div>
+    <div class="office-card secondary"><div class="card-header"><div><div class="card-name">Cynthia Villar</div><div class="card-role">Former Senator / Villar Foundation</div></div><span class="tier tier-2">Good</span></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-personal-email">@</span><a href="mailto:sencynthiavillar@gmail.com">sencynthiavillar@gmail.com</a></div><div class="contact-item"><span class="contact-icon icon-fb">f</span><a href="https://facebook.com/Senator.Cynthia.Villar" target="_blank">fb.com/Senator.Cynthia.Villar</a></div></div><div class="card-note">Villar family runs education and livelihood foundations. Personal email from official Senate/CA records.</div></div>
+    <div class="office-card secondary"><div class="card-header"><div><div class="card-name">Koko Pimentel</div><div class="card-role">Former Senator / Marikina</div></div><span class="tier tier-2">Good</span></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-fb">f</span><a href="https://facebook.com/KokoPimentel" target="_blank">fb.com/KokoPimentel</a></div></div></div>
+    <div class="office-card secondary"><div class="card-header"><div><div class="card-name">Bong Revilla Jr.</div><div class="card-role">Former Senator / Cavite politics</div></div><span class="tier tier-2">Good</span></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-fb">f</span><a href="https://facebook.com/BongRevillaJr" target="_blank">fb.com/BongRevillaJr</a></div></div><div class="card-note">Highly active on Facebook. Known for constituent assistance even after leaving the Senate.</div></div>
+    <div class="office-card gray-card"><div class="card-header"><div><div class="card-name">Francis Tolentino</div><div class="card-role">Former Senator</div></div><span class="tier tier-3">Optional</span></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-fb">f</span><a href="https://facebook.com/FrancisTolentino" target="_blank">fb.com/FrancisTolentino</a></div></div></div>
+    <div class="office-card secondary"><div class="card-header"><div><div class="card-name">Sec. Ralph Recto</div><div class="card-role">DOF Secretary — former Senator</div></div><span class="tier tier-2">Good</span></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-email">@</span><a href="mailto:info@dof.gov.ph">info@dof.gov.ph</a></div><div class="contact-item"><span class="contact-icon icon-fb">f</span><a href="https://facebook.com/RalphRecto" target="_blank">fb.com/RalphRecto</a></div></div><div class="card-note">Controls national budget as DOF Secretary. Strong education funding track record.</div></div>
+  </div>
+</div>
+
+<!-- ===== AGENCIES ===== -->
+<div id="tab-agencies" class="section">
+  <h2 class="section-title">National Agencies &amp; Programs</h2>
+  <p class="section-sub">Apply to all simultaneously — these are separate funding sources and can be stacked with each other and with senator/local assistance.</p>
+  <div class="urgency-banner">🚨 <span><strong>URGENT — Deadline June 30, 2026:</strong> BPMSP at <a href="https://bpms.ched.gov.ph" target="_blank" style="color:var(--gold-light)">bpms.ched.gov.ph</a></span></div>
+  <div class="offices-grid">
+    <div class="office-card"><div class="card-header"><div><div class="card-name">CHED — Bagong Pilipinas Merit Scholarship (BPMSP)</div></div><span class="tier tier-1">⭐ URGENT</span></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-web">🌐</span><a href="https://bpms.ched.gov.ph" target="_blank">bpms.ched.gov.ph</a></div><div class="contact-item"><span class="contact-icon icon-email">@</span><a href="mailto:info@ched.gov.ph">info@ched.gov.ph</a></div><div class="contact-item"><span class="contact-icon icon-fb">f</span><a href="https://facebook.com/CHEDgovph" target="_blank">fb.com/CHEDgovph</a></div></div><div class="card-note">🔴 <strong>Deadline: June 30, 2026.</strong> ₱45,000/year for private HEI. GWA 95%+ required. Apply online now.</div></div>
+    <div class="office-card"><div class="card-header"><div><div class="card-name">CHED Merit Scholarship (CMSP)</div></div><span class="tier tier-1">⭐ Priority</span></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-web">🌐</span><a href="https://ched.gov.ph" target="_blank">ched.gov.ph</a></div><div class="contact-item"><span class="contact-icon icon-email">@</span><a href="mailto:info@ched.gov.ph">info@ched.gov.ph</a></div></div><div class="card-note">Up to ₱120,000/year. GWA 93%+, family income ≤₱400,000/year. Apply through CHED Regional Office.</div></div>
+    <div class="office-card"><div class="card-header"><div><div class="card-name">DOST-SEI Scholarship</div></div><span class="tier tier-1">⭐ For STEM</span></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-email">@</span><a href="mailto:sei@dost.gov.ph">sei@dost.gov.ph</a></div><div class="contact-item"><span class="contact-icon icon-web">🌐</span><a href="https://sei.dost.gov.ph" target="_blank">sei.dost.gov.ph</a></div><div class="contact-item"><span class="contact-icon icon-phone">📞</span>(632) 8837-2071</div></div><div class="card-note">Full tuition + ₱7,000/month allowance + book/uniform/thesis grants. Best for STEM courses.</div></div>
+    <div class="office-card secondary"><div class="card-header"><div><div class="card-name">PCSO Educational Assistance</div></div><span class="tier tier-2">Good</span></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-web">🌐</span>Apply via <strong>eGovPH app</strong> (Play Store/App Store)</div><div class="contact-item"><span class="contact-icon icon-email">@</span><a href="mailto:publicaffairs@pcso.gov.ph">publicaffairs@pcso.gov.ph</a></div><div class="contact-item"><span class="contact-icon icon-fb">f</span><a href="https://facebook.com/PCSOofficial" target="_blank">fb.com/PCSOofficial</a></div></div><div class="card-note">No strict GWA requirement. Based on financial need. Easiest to apply — use eGovPH app.</div></div>
+    <div class="office-card secondary"><div class="card-header"><div><div class="card-name">Bawat Barangay Makikinabang</div><div class="card-role">Presidential Scholarship</div></div><span class="tier tier-2">Good</span></div><div class="card-contacts"><div class="contact-item">📍 Apply through your Barangay Captain — ₱20,000, up to 5 scholars per barangay</div></div></div>
+    <div class="office-card secondary"><div class="card-header"><div><div class="card-name">UniFAST — Tulong Dunong</div></div><span class="tier tier-2">Good</span></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-web">🌐</span><a href="https://unifast.gov.ph" target="_blank">unifast.gov.ph</a></div><div class="contact-item"><span class="contact-icon icon-email">@</span><a href="mailto:unifast@ched.gov.ph">unifast@ched.gov.ph</a></div></div><div class="card-note">Fewer grade restrictions than CMSP. Apply through your school's HEI Focal Person.</div></div>
+    <div class="office-card secondary"><div class="card-header"><div><div class="card-name">DSWD Social Assistance</div></div><span class="tier tier-2">Good</span></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-phone">📞</span>(02) 8931-8101</div><div class="contact-item"><span class="contact-icon icon-email">@</span><a href="mailto:actioncenter@dswd.gov.ph">actioncenter@dswd.gov.ph</a></div><div class="contact-item"><span class="contact-icon icon-fb">f</span><a href="https://facebook.com/dswdserves" target="_blank">fb.com/dswdserves</a></div></div><div class="card-note">Walk-in to any DSWD office with barangay certificate of indigency.</div></div>
+    <div class="office-card secondary"><div class="card-header"><div><div class="card-name">Senate Public Assistance Office (SPAO)</div></div><span class="tier tier-2">Good</span></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-web">🌐</span><a href="https://web.senate.gov.ph" target="_blank">web.senate.gov.ph</a> → "Senate Assist"</div><div class="contact-item"><span class="contact-icon icon-phone">📞</span>(632) 8552-6601 to 70</div></div><div class="card-note">One application reaches multiple senators. Best backup if direct senator outreach fails.</div></div>
+  </div>
+
+  <div class="group-label">Partylist Representatives</div>
+  <div class="offices-grid">
+    <div class="office-card secondary"><div class="card-header"><div><div class="card-name">ACT Teachers Partylist</div></div></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-fb">f</span><a href="https://facebook.com/ACTteachersPH" target="_blank">fb.com/ACTteachersPH</a></div></div></div>
+    <div class="office-card secondary"><div class="card-header"><div><div class="card-name">CIBAC Partylist</div><div class="card-role">Joel Villanueva's party; education focus</div></div></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-fb">f</span><a href="https://facebook.com/CIBACpartylist" target="_blank">fb.com/CIBACpartylist</a></div></div></div>
+    <div class="office-card secondary"><div class="card-header"><div><div class="card-name">GABRIELA Partylist</div></div></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-fb">f</span><a href="https://facebook.com/GABRIELApartylistph" target="_blank">fb.com/GABRIELApartylistph</a></div></div></div>
+    <div class="office-card secondary"><div class="card-header"><div><div class="card-name">SAGIP Partylist</div><div class="card-role">Marcoleta's party</div></div></div><div class="card-contacts"><div class="contact-item"><span class="contact-icon icon-fb">f</span><a href="https://facebook.com/SAGIPpartylist" target="_blank">fb.com/SAGIPpartylist</a></div></div></div>
+  </div>
+</div>
+
+<!-- ===== LETTERS ===== -->
+<div id="tab-letters" class="section">
+  <h2 class="section-title">Letter Templates — From Your Brother</h2>
+  <p class="section-sub">All letters are written as if your brother is sending them himself. Fill in the highlighted blanks. Keep to 1 page when printing or copying.</p>
+
+  <div class="letter-container">
+    <div class="letter-toolbar">
+      <span class="letter-toolbar-title">✉️ Templates — Your Brother Sends These</span>
+      <button class="copy-btn" onclick="copyLetter()">📋 Copy Letter</button>
+    </div>
+    <div style="background:#1b2e42;padding:8px 16px;font-size:11px;color:rgba(255,255,255,0.5);font-family:'DM Mono',monospace;letter-spacing:1px;">👇 SELECT RECIPIENT TYPE — ALL LETTERS ARE FROM YOUR BROTHER</div>
+    <div class="letter-tabs-wrap">
+      <button class="letter-arrow letter-arrow-left hidden" id="ltArrowLeft" onclick="scrollLetterTabs(-1)">&#8592;</button>
+      <div class="letter-tabs" id="letterTabsInner">
+        <div class="letter-tab active" onclick="showLetter('senator')">🏛️ Senator / Congressman</div>
+        <div class="letter-tab" onclick="showLetter('local')">🏙️ Mayor / Governor / Councilor</div>
+        <div class="letter-tab" onclick="showLetter('bokal')">📋 Board Member (Bokal)</div>
+        <div class="letter-tab" onclick="showLetter('agency')">🏥 Gov't Agency</div>
+        <div class="letter-tab" onclick="showLetter('fb')">📱 Facebook Message</div>
+      </div>
+      <button class="letter-arrow letter-arrow-right" id="ltArrowRight" onclick="scrollLetterTabs(1)">&#8594;</button>
+    </div>
+
+    <div id="letter-senator" class="letter-body active">
+      <div class="letter-note">📝 Fill all <span class="blank">highlighted blanks</span> before sending. Print on white bond paper and sign personally.</div>
+      <div class="letter-meta">DATE: <span class="blank">June __, 2026</span></div>
+      <p><strong>The Honorable <span class="blank">Senator's Full Name</span></strong><br>Senator, Republic of the Philippines<br>GSIS Building, Financial Center, Jose W. Diokno Boulevard<br>Pasay City, Metro Manila</p>
+      <p class="letter-salutation">Dear Senator <span class="blank">Last Name</span>,</p>
+      <p>With utmost respect and humility, I, <span class="blank">Your Full Name</span>, <span class="blank">age</span> years old, a resident of <span class="blank">Complete Address, Barangay, Meycauayan City, Bulacan</span>, am writing to earnestly request educational financial assistance from your esteemed office.</p>
+      <p>I am an incoming first-year college student for Academic Year 2026–2027, and I will be enrolling in <span class="blank">Bachelor of Science/Arts in [Course]</span> at <span class="blank">Name of University/College</span>. I graduated from <span class="blank">Senior High School Name</span> with a General Weighted Average of <span class="blank">___</span>, earning <span class="blank">With Honors / High Honors / Highest Honors</span>.</p>
+      <p>Our family belongs to a low-to-middle-income household. My <span class="blank">father/mother/guardian</span>, <span class="blank">Name</span>, works as a <span class="blank">occupation</span> with a monthly income of approximately <span class="blank">₱___,___</span>. I am one of <span class="blank">number</span> children in our family.</p>
+      <p>Despite our limited financial means, I am determined to pursue higher education to help uplift our family's condition and contribute to our community and nation. However, I recognize that without financial assistance, it will be extremely difficult for us to shoulder the full cost of my education.</p>
+      <p>I am humbly requesting your generous office's educational assistance to help cover my tuition fees and school-related expenses for AY 2026–2027. Any amount your office may extend will make a significant difference in my ability to pursue my studies.</p>
+      <p>Attached herewith are supporting documents for your reference. I pledge to work diligently in my studies and make your investment in my education worthwhile.</p>
+      <p>Thank you very much for your time and compassionate consideration.</p>
+      <p class="letter-closing">Respectfully yours,</p>
+      <div class="letter-signature"><br>___________________________<br><strong><span class="blank">Your Full Name</span></strong><br><span class="blank">Complete Address, Meycauayan City, Bulacan</span><br>📞 <span class="blank">Phone Number</span> &nbsp;|&nbsp; 📧 <span class="blank">Email Address</span></div>
+    </div>
+
+    <div id="letter-local" class="letter-body">
+      <div class="letter-note">📝 For Mayor Villarica, Governor Fernando, Vice Mayor Violago, and City Councilors. Use Filipino or English — your choice.</div>
+      <div class="letter-meta">PETSA/DATE: <span class="blank">Hunyo/June __, 2026</span></div>
+      <p><strong>Kay/To: <span class="blank">Mayor Henry Villarica / Gov. Daniel Fernando / Councilor [Name]</span></strong><br><span class="blank">Lungsod/Lalawigan</span> ng <span class="blank">Meycauayan City / Bulacan</span></p>
+      <p class="letter-salutation">Mahal na / Dear <span class="blank">Mayor/Governor/Councilor</span> <span class="blank">Last Name</span>,</p>
+      <p>Magandang araw po! Ako po si <span class="blank">Iyong Buong Pangalan</span>, <span class="blank">edad</span> taong gulang, naninirahan sa <span class="blank">Kumpletong Address, Barangay, Meycauayan City, Bulacan</span>. Nagsusulat po ako upang humbly na makiusap sa inyong opisina para sa tulong pinansyal sa aking pag-aaral / I am humbly writing to request educational financial assistance from your esteemed office.</p>
+      <p>Incoming first year college student po ako para sa Academic Year 2026–2027. Mag-aaral po ako ng <span class="blank">kurso / course</span> sa <span class="blank">paaralan / school name</span>. Nagtapos po ako ng Senior High School sa <span class="blank">pangalan ng paaralan</span> na may General Weighted Average na <span class="blank">___</span>.</p>
+      <p>Ang aming pamilya po ay may combined na kita na humigit-kumulang <span class="blank">₱___,___</span> lamang bawat buwan / Our family's combined monthly income is approximately <span class="blank">₱___,___</span>. Kami ay <span class="blank">bilang ng miyembro/number of members</span> sa aming tahanan / household.</p>
+      <p>Determinado po akong magtapos ng kolehiyo upang makatulong sa aming pamilya at makapag-ambag sa aming komunidad / I am determined to finish college to help my family and contribute to our community. Subalit, lubos naming kinikilala na kailangan namin ng tulong / However, we recognize that we need assistance.</p>
+      <p>Lubos po kaming umaasa sa inyong kabutihang loob / We sincerely hope for your kind assistance. Kahit anong halaga ng tulong ay malaking bagay para sa amin / Any amount of assistance will mean a great deal to our family.</p>
+      <p>Nakalakip po dito ang mga supporting documents. Maraming salamat po / Thank you very much.</p>
+      <p class="letter-closing">Taos-pusong nagpapasalamat / Respectfully yours,</p>
+      <div class="letter-signature"><br>___________________________<br><strong><span class="blank">Iyong Buong Pangalan / Your Full Name</span></strong><br><span class="blank">Kumpletong Address, Meycauayan City, Bulacan</span><br>📞 <span class="blank">Phone Number</span></div>
+    </div>
+
+    <div id="letter-bokal" class="letter-body">
+      <div class="letter-note">📝 Specifically for Provincial Board Members (Bokals) — BM Anna Kathrina Hernandez and BM William Villarica. Address to Sangguniang Panlalawigan ng Bulacan.</div>
+      <div class="letter-meta">DATE: <span class="blank">June __, 2026</span></div>
+      <p><strong>Hon. <span class="blank">BM Anna Kathrina M. Hernandez / BM William Villarica</span></strong><br>Board Member, Sangguniang Panlalawigan ng Bulacan<br>4th SP District (Meycauayan, Marilao, Obando)<br>Bulacan Provincial Capitol, Malolos City, Bulacan</p>
+      <p class="letter-salutation">Dear Board Member <span class="blank">Hernandez / Villarica</span>,</p>
+      <p>With deep respect, I, <span class="blank">Your Full Name</span>, <span class="blank">age</span> years old, a resident of <span class="blank">Complete Address, Barangay, Meycauayan City, Bulacan</span>, am writing to respectfully request educational financial assistance from your office.</p>
+      <p>I am a constituent of your district, as Meycauayan City falls under the 4th SP District of Bulacan which you honorably represent. I am an incoming first-year college student for AY 2026–2027, enrolled in <span class="blank">course</span> at <span class="blank">school</span>. I graduated Senior High School from <span class="blank">school name</span> with a GWA of <span class="blank">___</span>.</p>
+      <p>Our household income is approximately <span class="blank">₱___,___</span> per month, and we are facing financial challenges in meeting the cost of my college education. I am the <span class="blank">1st/2nd/etc.</span> child in a family of <span class="blank">number</span>.</p>
+      <p>I humbly request your good office's educational assistance — either through the provincial "Tulong Pang-Edukasyon Para sa Bulakenyo" program or any other assistance your office may provide. I am committed to finishing my degree and making this investment worthwhile.</p>
+      <p>Attached are the supporting documents. I am available for any follow-up as needed. Thank you for your continued dedication to the youth of Bulacan.</p>
+      <p class="letter-closing">Respectfully,</p>
+      <div class="letter-signature"><br>___________________________<br><strong><span class="blank">Your Full Name</span></strong><br><span class="blank">Complete Address, Meycauayan City, Bulacan</span><br>📞 <span class="blank">Phone Number</span></div>
+    </div>
+
+    <div id="letter-agency" class="letter-body">
+      <div class="letter-note">📝 For CHED, DOST, PCSO, DSWD, and other national government agencies.</div>
+      <div class="letter-meta">DATE: <span class="blank">June __, 2026</span></div>
+      <p><strong>The Director / Head of Office</strong><br><span class="blank">Agency Name (e.g., Philippine Charity Sweepstakes Office)</span><br><span class="blank">Agency Address</span></p>
+      <p class="letter-salutation">Dear Sir/Madam,</p>
+      <p>Good day. I, <span class="blank">Your Full Name</span>, <span class="blank">age</span> years old, am writing to apply for educational financial assistance. I am an incoming first-year college student for AY 2026–2027, enrolled in <span class="blank">course</span> at <span class="blank">school</span>, located in <span class="blank">city</span>.</p>
+      <p>I completed my Senior High School at <span class="blank">school</span> with a GWA of <span class="blank">___</span>. My family's combined monthly income is approximately <span class="blank">₱___,___</span>. We are a family of <span class="blank">number</span> facing financial challenges in funding my college education.</p>
+      <p>I am committed to finishing my degree and giving back to my community. I respectfully request financial assistance to help cover tuition fees and school-related expenses. I am willing to comply with all requirements of your office.</p>
+      <p>Attached are my supporting documents. I am available for any additional requirements at your convenience. Thank you for your office's commitment to supporting Filipino students.</p>
+      <p class="letter-closing">Respectfully,</p>
+      <div class="letter-signature"><br>___________________________<br><strong><span class="blank">Your Full Name</span></strong><br><span class="blank">Complete Address, Meycauayan City, Bulacan</span><br>📞 <span class="blank">Phone Number</span></div>
+    </div>
+
+    <div id="letter-fb" class="letter-body">
+      <p style="color:var(--gray);font-size:12px;margin-bottom:14px;font-style:italic;">Short Facebook Messenger message from your brother. Attach 1–2 document photos directly in the message.</p>
+      <div style="background:#f0f4ff;border-radius:10px;padding:18px;border:1px solid #c7d2fe;font-size:14px;line-height:1.85;">
+        <p>Good day po, <span class="blank">Senator/Mayor/BM/Coun. Name</span>! 🙏</p>
+        <p>Ako po si <span class="blank">Iyong Pangalan</span> mula sa <span class="blank">Barangay, Meycauayan City, Bulacan</span>. Incoming first year college student po ako para sa AY 2026–2027 — mag-aaral ng <span class="blank">kurso</span> sa <span class="blank">paaralan</span>.</p>
+        <p>Mayroon po kaming limitadong kita sa aming pamilya at nangangailangan ng tulong para sa aking tuition at school expenses. Nais ko pong humingi ng educational assistance mula sa inyong opisina.</p>
+        <p>Naka-attach po ang aking admission letter at birth certificate. Handang magbigay ng lahat ng kinakailangang dokumento.</p>
+        <p>Maraming salamat po! 🇵🇭</p>
+        <p>📞 <span class="blank">Phone Number</span> &nbsp;|&nbsp; 📧 <span class="blank">Email</span></p>
+      </div>
+      <div style="margin-top:12px;padding:10px 14px;background:#fef9c3;border-radius:8px;font-size:11px;color:#713f12;">
+        💡 <strong>Tip:</strong> Attach admission letter + PSA Birth Certificate photo directly in the FB message. Message should come from your brother's own Facebook account — more personal = faster response.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DOCUMENTS ===== -->
+<div id="tab-documents" class="section">
+  <h2 class="section-title">Documents Needed</h2>
+  <p class="section-sub">Prepare everything before applying — make 10+ copies of each key document so you can submit to many offices at once.</p>
+
+  <div class="group-label">🔴 Required — Every Application</div>
+  <div class="docs-grid">
+    <div class="doc-card required"><span class="doc-badge required">Required</span><div class="doc-icon">📄</div><div class="doc-title">PSA Birth Certificate</div><div class="doc-desc">Philippine Statistics Authority issued birth certificate. Original or certified true copy.</div><div class="doc-tip">💡 Get 5–10 copies. Cost: ₱365/copy at PSA or philsys.gov.ph.</div></div>
+    <div class="doc-card required"><span class="doc-badge required">Required</span><div class="doc-icon">🏫</div><div class="doc-title">Certificate of Enrollment / Admission Letter</div><div class="doc-desc">Official document from the college confirming enrollment or admission for AY 2026–2027.</div><div class="doc-tip">💡 Admission Letter or Notice of Acceptance works for incoming freshmen.</div></div>
+    <div class="doc-card required"><span class="doc-badge required">Required</span><div class="doc-icon">📊</div><div class="doc-title">SHS Report Card (Form 138)</div><div class="doc-desc">Senior High School Form 138 showing final grades and GWA. Must be certified with dry seal.</div><div class="doc-tip">💡 Get 10+ certified copies from SHS Registrar.</div></div>
+    <div class="doc-card required"><span class="doc-badge required">Required</span><div class="doc-icon">🪪</div><div class="doc-title">Valid Government ID (Student + Parent)</div><div class="doc-desc">At least one each for student and parent/guardian. PhilSys, Passport, Voter's ID, UMID, Driver's License, Postal ID all accepted.</div></div>
+    <div class="doc-card required"><span class="doc-badge required">Required</span><div class="doc-icon">📸</div><div class="doc-title">2×2 ID Photos (Student)</div><div class="doc-desc">Recent 2×2 photos, white or plain background. Most applications ask for 2 copies.</div><div class="doc-tip">💡 Have 15+ copies taken at once. Cost: ₱50–100.</div></div>
+    <div class="doc-card required"><span class="doc-badge required">Required</span><div class="doc-icon">🏘️</div><div class="doc-title">Barangay Endorsement / Certificate of Residency</div><div class="doc-desc">Letter from Barangay Captain. Can also double as Certificate of Indigency for low-income families.</div><div class="doc-tip">💡 Get this FIRST. Ask for both endorsement AND Certificate of Indigency.</div></div>
+  </div>
+
+  <div class="group-label">🟡 Helpful — Strongly Recommended</div>
+  <div class="docs-grid">
+    <div class="doc-card helpful"><span class="doc-badge helpful">Helpful</span><div class="doc-icon">💰</div><div class="doc-title">Certificate of Indigency / ITR</div><div class="doc-desc">Proof of family financial status. Certificate of Indigency from Barangay, ITR, BIR Tax Exemption, or payslips.</div><div class="doc-tip">💡 If parents are informal workers, Barangay Certificate of Indigency suffices.</div></div>
+    <div class="doc-card helpful"><span class="doc-badge helpful">Helpful</span><div class="doc-icon">🏠</div><div class="doc-title">Proof of Residency (Utility Bill)</div><div class="doc-desc">Recent electric or water bill showing the Meycauayan address, within the last 3 months.</div></div>
+    <div class="doc-card helpful"><span class="doc-badge helpful">Helpful</span><div class="doc-icon">🏆</div><div class="doc-title">Awards / Academic Certificates</div><div class="doc-desc">Honor roll, Latin honors, competitions, club leadership awards — any academic recognition.</div><div class="doc-tip">💡 Significantly strengthens the application even when not required.</div></div>
+    <div class="doc-card helpful"><span class="doc-badge helpful">Helpful</span><div class="doc-icon">✍️</div><div class="doc-title">Personal Essay / Statement of Purpose</div><div class="doc-desc">1-page statement from the student about their goals and why they need assistance. Written in first person.</div><div class="doc-tip">💡 Even when optional, including one raises success rate significantly.</div></div>
+    <div class="doc-card helpful"><span class="doc-badge helpful">Helpful</span><div class="doc-icon">👨‍👩‍👧‍👦</div><div class="doc-title">Family Composition List</div><div class="doc-desc">List of all household members, ages, and relationship to the student. Larger low-income families are often prioritized.</div></div>
+    <div class="doc-card helpful"><span class="doc-badge helpful">Helpful</span><div class="doc-icon">🏥</div><div class="doc-title">Medical Certificate (if applicable)</div><div class="doc-desc">If a family member has serious illness affecting finances, include a medical certificate.</div></div>
+  </div>
+
+  <div class="group-label">⚪ Optional — Good to Have</div>
+  <div class="docs-grid">
+    <div class="doc-card optional"><span class="doc-badge optional">Optional</span><div class="doc-icon">📰</div><div class="doc-title">Newspaper Clippings / News Features</div><div class="doc-desc">If featured as top student or awardee. Shows merit and public recognition.</div></div>
+    <div class="doc-card optional"><span class="doc-badge optional">Optional</span><div class="doc-icon">🤝</div><div class="doc-title">Character Reference Letters</div><div class="doc-desc">From teachers, school principal, community leaders, or religious figures.</div></div>
+    <div class="doc-card optional"><span class="doc-badge optional">Optional</span><div class="doc-icon">🎓</div><div class="doc-title">SHS Diploma</div><div class="doc-desc">Shows official completion of senior high school.</div></div>
+    <div class="doc-card optional"><span class="doc-badge optional">Optional</span><div class="doc-icon">📱</div><div class="doc-title">Entrance Exam Results</div><div class="doc-desc">UPCAT, ACET, or other entrance exam scores if the student performed well.</div></div>
+  </div>
+</div>
+
+<!-- ===== CHECKLIST ===== -->
+<div id="tab-checklist" class="section">
+  <h2 class="section-title">Action Plan &amp; Checklist</h2>
+  <p class="section-sub">Your complete step-by-step plan. Your brother should be the one signing and sending everything for best results.</p>
+
+  <div class="urgency-banner">🚨 <span><strong>TODAY:</strong> Apply at <strong>bpms.ched.gov.ph</strong> — deadline June 30, 2026!</span></div>
+
+  <div class="checklist">
+    <h3>📅 This Week — Urgent</h3>
+    <div class="check-item"><input type="checkbox" id="c1" onchange="toggleCheck(this)"><label for="c1">Apply BPMSP online at <strong>bpms.ched.gov.ph</strong> (Deadline: June 30!)</label></div>
+    <div class="check-item"><input type="checkbox" id="c2" onchange="toggleCheck(this)"><label for="c2">Go to Barangay Hall — get Endorsement Letter + Certificate of Indigency + ask about Presidential Scholarship</label></div>
+    <div class="check-item"><input type="checkbox" id="c3" onchange="toggleCheck(this)"><label for="c3">Get 10+ certified copies of Form 138 from SHS Registrar</label></div>
+    <div class="check-item"><input type="checkbox" id="c4" onchange="toggleCheck(this)"><label for="c4">Request Admission/Enrollment letter from college Registrar</label></div>
+    <div class="check-item"><input type="checkbox" id="c5" onchange="toggleCheck(this)"><label for="c5">Get 5+ PSA Birth Certificates</label></div>
+    <div class="check-item"><input type="checkbox" id="c6" onchange="toggleCheck(this)"><label for="c6">Take 15+ 2×2 ID photos</label></div>
+  </div>
+
+  <div class="checklist">
+    <h3>📬 Documents</h3>
+    <div class="check-item"><input type="checkbox" id="c7" onchange="toggleCheck(this)"><label for="c7">Prepare income documents (Certificate of Indigency or ITR)</label></div>
+    <div class="check-item"><input type="checkbox" id="c8" onchange="toggleCheck(this)"><label for="c8">Photocopy government IDs (student + parent)</label></div>
+    <div class="check-item"><input type="checkbox" id="c9" onchange="toggleCheck(this)"><label for="c9">Write Personal Essay / Statement of Purpose (1 page, brother writes it himself)</label></div>
+    <div class="check-item"><input type="checkbox" id="c10" onchange="toggleCheck(this)"><label for="c10">Gather all awards and academic certificates</label></div>
+    <div class="check-item"><input type="checkbox" id="c11" onchange="toggleCheck(this)"><label for="c11">Get recent utility bill for proof of residency</label></div>
+    <div class="check-item"><input type="checkbox" id="c12" onchange="toggleCheck(this)"><label for="c12">Organize documents into complete sets (1 set per application)</label></div>
+  </div>
+
+  <div class="checklist">
+    <h3>🏙️ Local Applications (Walk-In)</h3>
+    <div class="check-item"><input type="checkbox" id="c13" onchange="toggleCheck(this)"><label for="c13">Visit Meycauayan City Hall CSWD for local educational assistance</label></div>
+    <div class="check-item"><input type="checkbox" id="c14" onchange="toggleCheck(this)"><label for="c14">Submit letters to all 10 City Councilors (message on Facebook)</label></div>
+    <div class="check-item"><input type="checkbox" id="c15" onchange="toggleCheck(this)"><label for="c15">Submit to Provincial Government of Bulacan at Provincial Capitol, Malolos</label></div>
+    <div class="check-item"><input type="checkbox" id="c16" onchange="toggleCheck(this)"><label for="c16">Send letters to BM Anna Kathrina Hernandez and BM William Villarica (Bokals)</label></div>
+    <div class="check-item"><input type="checkbox" id="c17" onchange="toggleCheck(this)"><label for="c17">Send letter to Cong. Linabelle Villarica — Room RVM-403, HOR, QC</label></div>
+  </div>
+
+  <div class="checklist">
+    <h3>🏛️ Government Programs</h3>
+    <div class="check-item"><input type="checkbox" id="c18" onchange="toggleCheck(this)"><label for="c18">Apply CHED Merit Scholarship (CMSP) via CHED Regional Office</label></div>
+    <div class="check-item"><input type="checkbox" id="c19" onchange="toggleCheck(this)"><label for="c19">Apply DOST-SEI Scholarship (if STEM course)</label></div>
+    <div class="check-item"><input type="checkbox" id="c20" onchange="toggleCheck(this)"><label for="c20">Apply PCSO via eGovPH app</label></div>
+    <div class="check-item"><input type="checkbox" id="c21" onchange="toggleCheck(this)"><label for="c21">Apply UniFAST Tulong Dunong through school's HEI Focal Person</label></div>
+  </div>
+
+  <div class="checklist">
+    <h3>📱 Senator Outreach (Brother Sends All)</h3>
+    <div class="check-item"><input type="checkbox" id="c22" onchange="toggleCheck(this)"><label for="c22">Email + FB: Bong Go — senbgconcerns@gmail.com / @bonggopage</label></div>
+    <div class="check-item"><input type="checkbox" id="c23" onchange="toggleCheck(this)"><label for="c23">Email + FB: Loren Legarda — loren@lorenlegarda.com.ph</label></div>
+    <div class="check-item"><input type="checkbox" id="c24" onchange="toggleCheck(this)"><label for="c24">Email: Joel Villanueva — senatorjoelvillanueva@yahoo.com</label></div>
+    <div class="check-item"><input type="checkbox" id="c25" onchange="toggleCheck(this)"><label for="c25">Email: Jinggoy Estrada — senatorjinggoyestrada@gmail.com</label></div>
+    <div class="check-item"><input type="checkbox" id="c26" onchange="toggleCheck(this)"><label for="c26">Email: Raffy Tulfo — raffy.tulfo@teamtulfo.com</label></div>
+    <div class="check-item"><input type="checkbox" id="c27" onchange="toggleCheck(this)"><label for="c27">Email: Risa Hontiveros — risahq@gmail.com</label></div>
+    <div class="check-item"><input type="checkbox" id="c28" onchange="toggleCheck(this)"><label for="c28">Email: Ping Lacson — ospml2025@gmail.com</label></div>
+    <div class="check-item"><input type="checkbox" id="c29" onchange="toggleCheck(this)"><label for="c29">Email: Mark Villar — senatormarkvillar@gmail.com</label></div>
+    <div class="check-item"><input type="checkbox" id="c30" onchange="toggleCheck(this)"><label for="c30">Email: Tito Sotto — senatorvicentesotto@gmail.com</label></div>
+    <div class="check-item"><input type="checkbox" id="c31" onchange="toggleCheck(this)"><label for="c31">Email: Migz Zubiri — senmigzzubiri@gmail.com</label></div>
+    <div class="check-item"><input type="checkbox" id="c32" onchange="toggleCheck(this)"><label for="c32">Email: Rodante Marcoleta — osmarcoleta2025@gmail.com</label></div>
+    <div class="check-item"><input type="checkbox" id="c33" onchange="toggleCheck(this)"><label for="c33">Email: Imee Marcos — osimeemarcos@gmail.com</label></div>
+    <div class="check-item"><input type="checkbox" id="c34" onchange="toggleCheck(this)"><label for="c34">Email: Kiko Pangilinan — kiko@kikopangilinan.com</label></div>
+    <div class="check-item"><input type="checkbox" id="c35" onchange="toggleCheck(this)"><label for="c35">FB Message: <strong>Sen. Lito Lapid</strong> — mention you're from Meycauayan (he took his oath there!)</label></div>
+    <div class="check-item"><input type="checkbox" id="c36" onchange="toggleCheck(this)"><label for="c36">FB Message: all remaining senators without emails</label></div>
+    <div class="check-item"><input type="checkbox" id="c37" onchange="toggleCheck(this)"><label for="c37">Email DepEd Sec. Angara — osec@deped.gov.ph</label></div>
+    <div class="check-item"><input type="checkbox" id="c38" onchange="toggleCheck(this)"><label for="c38">FB Message: Nancy Binay, Grace Poe, Cynthia Villar, Bong Revilla (former senators)</label></div>
+  </div>
+
+  <div class="tips-grid">
+    <div class="tip-card"><div class="tip-num">01</div><div class="tip-title">Brother Sends, Not Sibling</div><div class="tip-text">Letters and messages signed and sent by the student himself carry significantly more weight. Officials respond better to requests from the applicant directly.</div></div>
+    <div class="tip-card"><div class="tip-num">02</div><div class="tip-title">Mention Meycauayan to Lito Lapid</div><div class="tip-text">Senator Lito Lapid took his senatorial oath in Barangay Pantoc, Meycauayan in 2019. Mention you are from Meycauayan — this personal connection may get a faster response.</div></div>
+    <div class="tip-card"><div class="tip-num">03</div><div class="tip-title">Bokals Are Underrated</div><div class="tip-text">Board Members (Bokals) are often overlooked but have direct access to provincial funds and are highly accessible. BM Hernandez is especially strong — she was previously a Meycauayan councilor herself.</div></div>
+    <div class="tip-card"><div class="tip-num">04</div><div class="tip-title">Personal Emails First</div><div class="tip-text">Emails to personal Gmail/Yahoo accounts go directly to the senator's team, bypassing general inboxes. Always email the personal address AND message on Facebook simultaneously.</div></div>
+    <div class="tip-card"><div class="tip-num">05</div><div class="tip-title">Apply Everywhere at Once</div><div class="tip-text">Don't wait for one response before applying to the next. All these are separate funding sources — you can receive from multiple simultaneously.</div></div>
+    <div class="tip-card"><div class="tip-num">06</div><div class="tip-title">Follow Up After 1 Week</div><div class="tip-text">Send a polite follow-up if no reply. Call offices directly — phone often works faster than email or Facebook for formal offices like CSWD or the Capitol.</div></div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+
+<script>
+  const tabsInner = document.getElementById('tabsInner');
+  const arrowLeft = document.getElementById('arrowLeft');
+  const arrowRight = document.getElementById('arrowRight');
+
+  function updateArrows() {
+    const atStart = tabsInner.scrollLeft <= 4;
+    const atEnd = tabsInner.scrollLeft + tabsInner.clientWidth >= tabsInner.scrollWidth - 4;
+    arrowLeft.classList.toggle('hidden', atStart);
+    arrowRight.classList.toggle('hidden', atEnd);
+  }
+
+  function scrollTabs(dir) {
+    tabsInner.scrollBy({ left: dir * 160, behavior: 'smooth' });
+    setTimeout(updateArrows, 300);
+  }
+
+  tabsInner.addEventListener('scroll', updateArrows);
+  window.addEventListener('resize', updateArrows);
+  setTimeout(updateArrows, 100);
+
+  function showTab(id) {
+    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.getElementById('tab-'+id).classList.add('active');
+    event.target.classList.add('active');
+    // scroll active tab into view
+    event.target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    setTimeout(updateArrows, 300);
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function showLetter(id) {
+    document.querySelectorAll('.letter-body').forEach(l=>l.classList.remove('active'));
+    document.querySelectorAll('.letter-tab').forEach(t=>t.classList.remove('active'));
+    const body = document.getElementById('letter-'+id);
+    if (body) body.classList.add('active');
+    event.target.classList.add('active');
+    event.target.scrollIntoView({ behavior:'smooth', block:'nearest', inline:'center' });
+    setTimeout(updateLetterArrows, 300);
+  }
+
+  // Letter tab arrows
+  const ltInner = document.getElementById('letterTabsInner');
+  const ltLeft = document.getElementById('ltArrowLeft');
+  const ltRight = document.getElementById('ltArrowRight');
+
+  function updateLetterArrows() {
+    if (!ltInner) return;
+    ltLeft.classList.toggle('hidden', ltInner.scrollLeft <= 4);
+    ltRight.classList.toggle('hidden', ltInner.scrollLeft + ltInner.clientWidth >= ltInner.scrollWidth - 4);
+  }
+
+  function scrollLetterTabs(dir) {
+    ltInner.scrollBy({ left: dir * 150, behavior: 'smooth' });
+    setTimeout(updateLetterArrows, 300);
+  }
+
+  if (ltInner) {
+    ltInner.addEventListener('scroll', updateLetterArrows);
+    setTimeout(updateLetterArrows, 200);
+  }
+  function copyLetter() {
+    const active=document.querySelector('.letter-body.active');
+    navigator.clipboard.writeText(active.innerText).then(()=>{
+      const btn=document.querySelector('.copy-btn');
+      btn.textContent='✅ Copied!';
+      setTimeout(()=>btn.textContent='📋 Copy Letter',2000);
+    });
+  }
+  function toggleCheck(cb) {
+    cb.nextElementSibling.classList.toggle('checked',cb.checked);
+  }
+</script>
+</body>
+</html>
